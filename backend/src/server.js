@@ -2,6 +2,7 @@ import express from "express";
 import noteRoutes from "./routes/noteRoutes.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
+import rateLimiter from "./middleware/rateLimiter.js";
 
 // Load .env variables
 dotenv.config();
@@ -12,6 +13,7 @@ connectDB();
 const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(rateLimiter);
 
 
 app.use("/api/notes", noteRoutes);
